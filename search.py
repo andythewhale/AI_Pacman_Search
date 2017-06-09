@@ -123,7 +123,7 @@ def depthFirstSearch(problem):
         # Initially this will not be implemented.
         # NOTE: that continue reissues the while loop beginning. I learned this (:
         if (stata in visited):
-            continue;
+            continue
 
         # so when we don't continue, we add the state to the visited set.
         visited.add(stata)
@@ -136,7 +136,7 @@ def depthFirstSearch(problem):
         for state, direction, cost in problem.getSuccessors(stata):
             frontier.push((state, successors + [direction], costa))
 
-    return [];
+    return []
 
 
 """
@@ -190,7 +190,7 @@ def breadthFirstSearch(problem):
         # Initially this will not be implemented.
         # NOTE: that continue reissues the while loop beginning. I learned this (:
         if (stata in visited):
-            continue;
+            continue
 
         # so when we don't continue, we add the state to the visited set.
         visited.add(stata)
@@ -203,7 +203,7 @@ def breadthFirstSearch(problem):
         for state, direction, cost in problem.getSuccessors(stata):
             frontier.push((state, successors + [direction], costa))
 
-    return [];
+    return []
 
 
 """
