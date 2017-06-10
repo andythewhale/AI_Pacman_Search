@@ -76,6 +76,7 @@ def tinyMazeSearch(problem):
 # I will explain the code for my own understanding and implement this to my search algorithms.
 
 # NOTE: My code before this algorithm was passing, this is just better formatted code.
+# This code is also a great skeleton and I'm going to use it for that.
 def generic_search(problem, fringe, add_to_fringe_fn):
     # This code will take in a position and a givin board state and return a path.
     # The path will be based on the calls that are fed to it from the utils.py file.

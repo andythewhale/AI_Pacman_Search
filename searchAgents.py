@@ -433,25 +433,56 @@ def foodHeuristic(state, problem):
     Subsequent calls to this heuristic can access
     problem.heuristicInfo['wallCount']
     """
+
+    #Get our position and our food locations based on state.
     position, foodGrid = state
 
+    #This will store our distances to each dot.
     distances = [0]
+
+    #For each piece of food in our food grid...
     for food in foodGrid.asList():
-        # distances.append(util.manhattanDistance(position, food))
-        distances.append(mazeDistance(position, food, problem.startingGameState))
+
+        #Somehow this runs faster, and gets the same score. I'm not sure why.
+        #If anybody reads this. Tell me why.
+        #More expanded nodes should increase processing search time, and not decrease it.
+        #lost on this one.
+
+        #add the Manhattan distance of each dot to the distances vector.
+        distances.append(util.manhattanDistance(position, food))
+
+        #This function expands less nodes and would be better... but it takes about 5x as long to process.
+        #This may be due to me using NVDA's CUDS GPU software to make parallel processing easier for my machine.
+        #That's the only good answer I have for this.
+
+        #add the maze distance to the distances vector.
+        #distances.append(mazeDistance(position, food, problem.startingGameState))
+
+    #The furthest distance is what we'll be returning.
     distanceFurthest = max(distances)
 
+    #But why return the furthest distance you say?
+    #I don't know.
     return distanceFurthest
 
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
     def registerInitialState(self, state):
+        # create storage and call the current state.
         self.actions = []
         currentState = state
+
+        #While we still have food to get...
         while(currentState.getFood().count() > 0):
+
+            #The next path segment is at position 0 in the A* search.
             nextPathSegment = self.findPathToClosestDot(currentState) # The missing piece
+
+            #Change our actions to this path segment.
             self.actions += nextPathSegment
+
+            #Let's make sure we're allowed to do this:
             for action in nextPathSegment:
                 legal = currentState.getLegalActions()
                 if action not in legal:
@@ -467,6 +498,7 @@ class ClosestDotSearchAgent(SearchAgent):
         gameState.
         """
         # Here are some useful elements of the startState
+        #But mostly this is good for that problem statement and that return function only.
         startPosition = gameState.getPacmanPosition()
         food = gameState.getFood()
         walls = gameState.getWalls()
